@@ -1,0 +1,31 @@
+name: test
+
+on:
+  schedule:
+    - cron: '50 02 * * *'
+  workflow_dispatch:
+
+permissions:
+    contents: read
+    actions: write
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.11"
+   
+    - name: app
+      run: |
+        chmod +x entrypoint.sh
+
+    - name: app run
+      run: |
+        bash entrypoint.sh
